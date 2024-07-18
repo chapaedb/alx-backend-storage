@@ -1,5 +1,5 @@
 // Delete a document
-db.school.delete(
+db.school.deleteMany(
     {
         name: "Holberton school"
     }
