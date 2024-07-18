@@ -9,5 +9,8 @@ def list_all(mongo_collection):
     """
 
     for doc in mongo_collection.find():
-                    return doc
+        if not doc:
+            return []
+    
+        return doc
     
