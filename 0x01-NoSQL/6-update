@@ -1,5 +1,5 @@
 // Updates the collection
-db.school.updateMany({
+db.school.update({
     name:"Holberton school"},
-    {$set: {addres:"972 Mission street"}}
+    {$set: {address:"972 Mission street"}}
 );
