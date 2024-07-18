@@ -1,0 +1,2 @@
+// Creates or switches to a db
+use my_db;
