@@ -2,7 +2,7 @@
 
 import redis
 import uuid
-from typing import Union
+from typing import Any, Callable, Optional, Union 
 """
 Writing to redis
 """
@@ -24,3 +24,27 @@ class Cache:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
+    def get(self, key: str, fn: Optional[Callable] = None) -> Any:
+        """Gets the key's value and convert it to the needed format"""
+
+        client = self._redis
+        value = client.get(key)
+        if not value:
+            return
+        if fn is int:
+            return self.get_int(value)
+        if fn is str:
+            return self.get_str(value)
+        if callable(value):
+            return fn(value)
+        return value
+    
+    def get_str(self, data: bytes) -> str:
+        """ Converts bytes to string
+        """
+        return data.decode('utf-8')
+
+    def get_int(self, data: bytes) -> int:
+        """ Converts bytes to integers
+        """
+        return int(data)
